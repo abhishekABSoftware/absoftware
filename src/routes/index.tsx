@@ -1,71 +1,189 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  Zap, Rocket, Code2, GraduationCap, FileText, PartyPopper, Cloud,
-  Building2, Workflow, Database, Send, MessageCircle, Instagram, Linkedin,
-  Check, Sparkles, ArrowRight, Timer, Star, X,
+  Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Github, Linkedin,
+  Instagram, Mail, Phone, MapPin, Menu, X, ArrowUp, Sun, Moon,
+  Search, ClipboardList, PenTool, Terminal, TestTube2, Rocket, LifeBuoy,
+  Zap, ShieldCheck, Smartphone, Sparkles, Server, GitBranch, Target, Eye, Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import {
-  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
-} from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import {
-  Accordion, AccordionContent, AccordionItem, AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
 });
 
-const WHATSAPP = "919999999999"; // placeholder brand number
+const CONTACT = {
+  phone: "+91 9739193141",
+  phoneHref: "tel:+919739193141",
+  email: "abhishek.ck.dev@gmail.com",
+  linkedin: "https://linkedin.com/in/abhishek-ck0000",
+  instagram: "https://instagram.com/ab_software__",
+  instagramHandle: "@ab_software__",
+  location: "Bengaluru, Karnataka, India",
+  github: "https://github.com/",
+};
+
+const NAV = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "portfolio", label: "Portfolio" },
+  { id: "technologies", label: "Technologies" },
+  { id: "process", label: "Process" },
+  { id: "contact", label: "Contact" },
+];
 
 function LandingPage() {
   return (
     <div className="min-h-screen text-foreground overflow-x-hidden">
+      <ScrollProgress />
       <Nav />
-      <Hero />
-      <TechStrip />
-      <Calculator />
-      <Services />
-      <Portfolio />
-      <Testimonials />
-      <FAQ />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Portfolio />
+        <Technologies />
+        <WhyChooseUs />
+        <Process />
+        <Trust />
+        <Contact />
+      </main>
       <Footer />
-      <StickyWhatsApp />
-      <ExitPopup />
+      <ScrollTop />
     </div>
+  );
+}
+
+/* ---------- SCROLL PROGRESS ---------- */
+function ScrollProgress() {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    const on = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      setP(Math.min(1, Math.max(0, scrolled)) * 100);
+    };
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <div
+      className="fixed top-0 left-0 z-[60] h-[3px]"
+      style={{ width: `${p}%`, background: "var(--gradient-brand)" }}
+      aria-hidden
+    />
   );
 }
 
 /* ---------- NAV ---------- */
 function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const [dark, setDark] = useState(true);
+
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 20);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    );
+    NAV.forEach((n) => {
+      const el = document.getElementById(n.id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
+
+  const toggleTheme = () => {
+    const root = document.documentElement;
+    root.classList.toggle("light");
+    setDark(!root.classList.contains("light"));
+  };
+
   return (
-    <header className="fixed top-0 inset-x-0 z-40">
-      <div className="mx-auto mt-4 max-w-6xl px-4">
-        <div className="glass flex items-center justify-between px-5 py-3">
-          <a href="#top" className="flex items-center gap-2 font-[Space_Grotesk] font-bold tracking-tight">
-            <span className="inline-block h-6 w-6 rounded-md" style={{ background: "var(--gradient-brand)", boxShadow: "var(--shadow-glow)" }} />
-            <span>AB_SOFTWARE<span className="text-gradient">__</span></span>
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-background/70 backdrop-blur-xl border-b border-white/10" : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="#home" className="flex items-center gap-2 font-bold text-lg tracking-tight">
+          <span className="grid place-items-center h-8 w-8 rounded-lg text-white" style={{ background: "var(--gradient-brand)" }}>
+            <Code2 className="h-4 w-4" />
+          </span>
+          <span>AB<span className="text-gradient">Software</span></span>
+        </a>
+
+        <nav className="hidden lg:flex items-center gap-1">
+          {NAV.map((n) => (
+            <a
+              key={n.id}
+              href={`#${n.id}`}
+              className={`px-3 py-2 text-sm rounded-md transition-colors ${
+                active === n.id ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {n.label}
+              {active === n.id && (
+                <span className="block h-[2px] mt-1 rounded-full" style={{ background: "var(--gradient-brand)" }} />
+              )}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="hidden sm:grid place-items-center h-9 w-9 rounded-md border border-white/10 hover:bg-white/5"
+          >
+            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <a href="#contact" className="hidden sm:inline-flex">
+            <Button className="btn-glow rounded-full">Get in touch</Button>
           </a>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#services" className="hover:text-foreground transition">Services</a>
-            <a href="#calculator" className="hover:text-foreground transition">Pricing</a>
-            <a href="#portfolio" className="hover:text-foreground transition">Work</a>
-            <a href="#faq" className="hover:text-foreground transition">FAQ</a>
-            <a href="#contact" className="hover:text-foreground transition">Contact</a>
-          </nav>
-          <a href="#calculator">
-            <Button className="btn-glow rounded-full h-9 px-4 text-xs">Get Quote</Button>
-          </a>
+          <button
+            className="lg:hidden grid place-items-center h-9 w-9 rounded-md border border-white/10"
+            onClick={() => setOpen(!open)}
+            aria-label="Menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </div>
+
+      {open && (
+        <div className="lg:hidden bg-background/95 backdrop-blur-xl border-t border-white/10">
+          <div className="px-4 py-3 flex flex-col">
+            {NAV.map((n) => (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                onClick={() => setOpen(false)}
+                className={`py-3 text-base ${active === n.id ? "text-foreground" : "text-muted-foreground"}`}
+              >
+                {n.label}
+              </a>
+            ))}
+            <a href="#contact" onClick={() => setOpen(false)} className="mt-2">
+              <Button className="btn-glow rounded-full w-full">Get in touch</Button>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
@@ -73,416 +191,234 @@ function Nav() {
 /* ---------- HERO ---------- */
 function Hero() {
   return (
-    <section id="top" className="relative pt-32 pb-24 md:pt-40 md:pb-32">
-      <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "var(--gradient-hero)" }}
-      />
-      <div className="relative mx-auto max-w-6xl px-4 text-center">
-        <div className="inline-flex items-center gap-2 glass px-4 py-2 text-xs md:text-sm animate-float">
-          <Zap className="h-4 w-4 text-[color:var(--brand-cyan)]" />
-          <span className="text-muted-foreground">Fast</span>
-          <span className="text-foreground font-semibold">24–48h Delivery</span>
-          <span className="text-muted-foreground">available for college deadlines</span>
+    <section id="home" className="relative pt-32 pb-24 sm:pt-40 sm:pb-32 overflow-hidden">
+      <div className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
+      <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
+      {/* floating blobs */}
+      <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl opacity-30 animate-float" style={{ background: "var(--brand-blue)" }} aria-hidden />
+      <div className="absolute top-1/3 -right-24 h-80 w-80 rounded-full blur-3xl opacity-20 animate-float" style={{ background: "var(--brand-cyan)" }} aria-hidden />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs sm:text-sm mb-8">
+          <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--brand-cyan)" }} />
+          <span className="text-muted-foreground">A growing software startup — building in the open</span>
         </div>
 
-        <h1 className="mt-8 font-[Space_Grotesk] text-4xl md:text-7xl font-bold leading-[1.05] tracking-tight">
-          WE CODE YOUR IDEAS <br className="hidden md:block" />
-          INTO <span className="text-gradient">REALITY</span>
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] max-w-4xl mx-auto" style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+          Building <span className="text-gradient">Modern Software</span><br className="hidden sm:block" /> Solutions for Businesses
         </h1>
 
-        <p className="mt-6 mx-auto max-w-2xl text-base md:text-lg text-muted-foreground">
-          Custom Websites, Mini Projects, Full-Stack Apps, Event Sites & Plagiarism-Free
-          Reports for college students and business clients.
+        <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+          AB Software develops secure, scalable, and modern software solutions — websites, AI applications,
+          business software, and custom development tailored to client needs.
         </p>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <a href="#calculator">
-            <Button size="lg" className="btn-glow rounded-full h-12 px-6">
-              Get Instant Quote <ArrowRight className="ml-2 h-4 w-4" />
+        <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#contact">
+            <Button size="lg" className="btn-glow rounded-full h-12 px-7 text-base">
+              Get Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </a>
           <a href="#portfolio">
-            <Button size="lg" variant="outline" className="rounded-full h-12 px-6 border-white/20 bg-white/5 hover:bg-white/10">
-              View Sample Work
-            </Button>
-          </a>
-          <a href="#contact">
-            <Button size="lg" variant="ghost" className="rounded-full h-12 px-6 text-muted-foreground hover:text-foreground">
-              Request Proposal
+            <Button size="lg" variant="outline" className="rounded-full h-12 px-7 text-base border-white/15 bg-white/5 hover:bg-white/10">
+              View Our Work
             </Button>
           </a>
         </div>
 
-        {/* Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-          {[
-            { k: "500+", v: "Projects Shipped" },
-            { k: "24h", v: "Express Delivery" },
-            { k: "4.9★", v: "Avg. Rating" },
-            { k: "100%", v: "Plagiarism Free" },
-          ].map((s) => (
-            <div key={s.v} className="glass px-4 py-5">
-              <div className="text-2xl md:text-3xl font-bold text-gradient">{s.k}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{s.v}</div>
+        {/* mock code card */}
+        <div className="mt-16 max-w-3xl mx-auto glass p-1 rounded-2xl animate-float">
+          <div className="rounded-xl bg-black/40 p-4 sm:p-6 text-left font-mono text-xs sm:text-sm">
+            <div className="flex gap-1.5 mb-4">
+              <span className="h-3 w-3 rounded-full bg-red-500/70" />
+              <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
+              <span className="h-3 w-3 rounded-full bg-green-500/70" />
             </div>
-          ))}
+            <pre className="text-muted-foreground overflow-x-auto"><code>{`const abSoftware = {
+  focus: ["Web", "AI", "Custom Software"],
+  values: ["Quality", "Security", "Scalability"],
+  build: () => "Modern solutions, tailored to you.",
+};`}</code></pre>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- TECH STRIP ---------- */
-function TechStrip() {
-  const tech = ["HTML5", "CSS3", "JavaScript", "React", "PHP", "MySQL", "Python", "GitHub", "AWS", "Azure", "GCP"];
+/* ---------- ABOUT ---------- */
+function About() {
+  const values = [
+    { icon: Target, title: "Mission", body: "Build modern, secure, and scalable software that helps businesses grow — without unnecessary complexity." },
+    { icon: Eye, title: "Vision", body: "Become a trusted software partner known for clean engineering, honest communication, and long-term client value." },
+    { icon: Heart, title: "Values", body: "Craftsmanship, transparency, security-first thinking, and a genuine focus on client outcomes." },
+  ];
+  const reasons = [
+    "Modern tech stack and clean architecture",
+    "Direct communication with the founder",
+    "Security and performance as defaults",
+    "Honest scope, honest timelines",
+  ];
   return (
-    <section className="py-10 border-y border-white/5">
-      <div className="mx-auto max-w-6xl px-4">
-        <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
-          Built with a modern stack
-        </p>
-        <div className="flex flex-wrap justify-center gap-2">
-          {tech.map((t) => (
-            <Badge
-              key={t}
-              variant="outline"
-              className="border-white/10 bg-white/5 text-foreground/80 hover:border-[color:var(--brand-cyan)]/50 hover:text-foreground transition rounded-full px-3 py-1"
-            >
-              {t}
-            </Badge>
+    <section id="about" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="About" title="A growing software startup" subtitle="AB Software is an early-stage software startup focused on building quality digital solutions for businesses and creators." />
+
+        <div className="grid md:grid-cols-3 gap-5 mt-14">
+          {values.map((v) => (
+            <div key={v.title} className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4" style={{ background: "var(--gradient-brand)" }}>
+                <v.icon className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold">{v.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.body}</p>
+            </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-/* ---------- CALCULATOR ---------- */
-const SERVICE_PRICES: Record<string, [number, number]> = {
-  "Custom Website": [4000, 15000],
-  "College Project": [1500, 6000],
-  "Event / Farewell Site": [2500, 8000],
-  "Documentation / Report": [800, 3500],
-  "Business SaaS / Automation": [15000, 80000],
-};
-
-const SPEED_MULTIPLIER: Record<string, number> = {
-  "Standard (5–7 Days)": 1,
-  "Express (48 Hours)": 1.5,
-  "Super Express (24 Hours)": 2,
-};
-
-function Calculator() {
-  const [service, setService] = useState("Custom Website");
-  const [speed, setSpeed] = useState("Standard (5–7 Days)");
-  const [isClient, setIsClient] = useState(false);
-
-  const [min, max] = useMemo(() => {
-    const [a, b] = SERVICE_PRICES[service];
-    const m = SPEED_MULTIPLIER[speed];
-    const mul = isClient ? m * 1.4 : m;
-    return [Math.round(a * mul), Math.round(b * mul)];
-  }, [service, speed, isClient]);
-
-  const waLink = useMemo(() => {
-    const msg = encodeURIComponent(
-      `Hi AB_SOFTWARE__! I'd like a ${isClient ? "Client Proposal" : "Student Quote"}.\n` +
-      `• Service: ${service}\n• Delivery: ${speed}\n• Estimated Range: ₹${min.toLocaleString()} – ₹${max.toLocaleString()}`
-    );
-    return `https://wa.me/${WHATSAPP}?text=${msg}`;
-  }, [service, speed, min, max, isClient]);
-
-  return (
-    <section id="calculator" className="py-24">
-      <div className="mx-auto max-w-5xl px-4">
-        <SectionHeader
-          kicker="Instant Estimate"
-          title="Pricing & Quote Calculator"
-          sub="Pick your service and delivery speed. Get a live estimate — no forms, no wait."
-        />
-
-        <div className="mt-12 glass p-6 md:p-10 relative overflow-hidden">
-          <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-30" style={{ background: "var(--gradient-brand)" }} />
-
-          {/* Toggle */}
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <span className={!isClient ? "text-foreground font-semibold" : "text-muted-foreground text-sm"}>
-              Student Quote
-            </span>
-            <Switch checked={isClient} onCheckedChange={setIsClient} />
-            <span className={isClient ? "text-foreground font-semibold" : "text-muted-foreground text-sm"}>
-              Client Proposal
-            </span>
+        <div className="grid lg:grid-cols-2 gap-6 mt-6">
+          <div className="glass p-6 sm:p-8 rounded-2xl">
+            <h3 className="text-xl font-semibold mb-4">Why choose AB Software</h3>
+            <ul className="space-y-3">
+              {reasons.map((r) => (
+                <li key={r} className="flex items-start gap-3 text-sm text-muted-foreground">
+                  <span className="mt-0.5 h-5 w-5 rounded-full grid place-items-center shrink-0" style={{ background: "var(--gradient-brand)" }}>
+                    <ShieldCheck className="h-3 w-3 text-white" />
+                  </span>
+                  <span>{r}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <Label className="text-xs uppercase tracking-wider text-muted-foreground">Service Type</Label>
-              <Select value={service} onValueChange={setService}>
-                <SelectTrigger className="mt-2 h-12 bg-white/5 border-white/10">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(SERVICE_PRICES).map((s) => (
-                    <SelectItem key={s} value={s}>{s}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+          <div className="glass p-6 sm:p-8 rounded-2xl">
+            <div className="flex items-center gap-4">
+              <div className="h-14 w-14 rounded-full grid place-items-center text-white font-bold text-lg" style={{ background: "var(--gradient-brand)" }}>AC</div>
+              <div>
+                <h3 className="text-lg font-semibold">Abhishek C K</h3>
+                <p className="text-xs text-muted-foreground">Founder — AB Software</p>
+              </div>
             </div>
-            <div>
-              <Label className="text-xs uppercase tracking-wider text-muted-foreground">Delivery Speed</Label>
-              <Select value={speed} onValueChange={setSpeed}>
-                <SelectTrigger className="mt-2 h-12 bg-white/5 border-white/10">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {Object.keys(SPEED_MULTIPLIER).map((s) => (
-                    <SelectItem key={s} value={s}>{s}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="mt-10 text-center">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Estimated Price Range</p>
-            <div className="mt-3 font-[Space_Grotesk] text-4xl md:text-6xl font-bold">
-              <span className="text-gradient">
-                ₹{min.toLocaleString()} – ₹{max.toLocaleString()}
-              </span>
-            </div>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Final quote confirmed after scope discussion. 50% advance to lock the slot.
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Developer and founder building AB Software from the ground up. Focused on writing clean code,
+              shipping reliable software, and working directly with clients to understand what they actually need.
             </p>
-
-            <a href={waLink} target="_blank" rel="noopener noreferrer" className="inline-block mt-8">
-              <Button size="lg" className="btn-glow rounded-full h-12 px-8">
-                <MessageCircle className="mr-2 h-4 w-4" /> Order via WhatsApp
-              </Button>
-            </a>
+            <div className="mt-5 flex gap-2">
+              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Linkedin className="h-4 w-4" /></a>
+              <a href={CONTACT.instagram} target="_blank" rel="noreferrer" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Instagram className="h-4 w-4" /></a>
+              <a href={`mailto:${CONTACT.email}`} className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Mail className="h-4 w-4" /></a>
+            </div>
           </div>
         </div>
-
-        {/* Countdown for express slots */}
-        <CountdownStrip />
       </div>
     </section>
-  );
-}
-
-function CountdownStrip() {
-  const [remaining, setRemaining] = useState(3 * 3600 + 42 * 60);
-  useEffect(() => {
-    const t = setInterval(() => setRemaining((r) => (r > 0 ? r - 1 : 0)), 1000);
-    return () => clearInterval(t);
-  }, []);
-  const h = String(Math.floor(remaining / 3600)).padStart(2, "0");
-  const m = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
-  const s = String(remaining % 60).padStart(2, "0");
-  return (
-    <div className="mt-6 glass px-5 py-4 flex flex-wrap items-center justify-center gap-3 text-sm">
-      <Timer className="h-4 w-4 text-[color:var(--brand-cyan)]" />
-      <span className="text-muted-foreground">Only 3 express slots left this week — closing in</span>
-      <span className="font-mono font-bold text-foreground tracking-widest">
-        {h}:{m}:{s}
-      </span>
-    </div>
   );
 }
 
 /* ---------- SERVICES ---------- */
 function Services() {
-  const student = [
-    { icon: Code2, title: "Custom Website Development", desc: "Personal, event & niche sites tailored to your brief." },
-    { icon: GraduationCap, title: "College & Mini Projects", desc: "Working code with viva walkthrough and setup guide." },
-    { icon: FileText, title: "Reports & Documentation", desc: "IEEE-format, plagiarism-free, ready to submit." },
-    { icon: PartyPopper, title: "Farewell & Event Sites", desc: "RSVP, gallery, memories — shipped in 48 hours." },
-    { icon: Cloud, title: "Deployment & Hosting", desc: "Vercel, Netlify, custom domains and SSL configured." },
+  const items = [
+    { icon: Globe, title: "Website Development", body: "Modern, responsive websites built with performance, SEO, and clean design in mind." },
+    { icon: Code2, title: "Custom Software Development", body: "Tailored software built around your workflow — from internal tools to full-stack applications." },
+    { icon: Palette, title: "UI/UX Design", body: "Clean, modern interfaces designed to feel intuitive and look premium across devices." },
+    { icon: Cloud, title: "Cloud Solutions", body: "Deploy, scale, and manage applications on modern cloud infrastructure." },
+    { icon: Wrench, title: "Software Maintenance", body: "Ongoing support, updates, and improvements to keep your software healthy and secure." },
   ];
-  const client = [
-    { icon: Building2, title: "Enterprise Web Apps", desc: "Scalable dashboards with auth, RBAC and analytics." },
-    { icon: Rocket, title: "SaaS Development", desc: "MVP to production — subscriptions, billing, admin." },
-    { icon: Database, title: "CRM / ERP Customization", desc: "Extend or build tailored business systems." },
-    { icon: Workflow, title: "Automation Tools", desc: "Bots, workflows, integrations that save hours." },
-    { icon: Cloud, title: "Cloud Deployment", desc: "AWS, Azure and GCP with CI/CD and monitoring." },
-  ];
-
   return (
-    <section id="services" className="py-24">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionHeader
-          kicker="Services"
-          title="Everything you need to ship"
-          sub="Two focused tracks — one for students, one for businesses."
-        />
-        <div className="mt-12 grid gap-10 lg:grid-cols-2">
-          <ServiceColumn label="For Students" items={student} />
-          <ServiceColumn label="For Businesses" items={client} />
+    <section id="services" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Services" title="What we build" subtitle="A focused set of services delivered end-to-end." />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+          {items.map((s) => (
+            <div key={s.title} className="group glass p-6 rounded-2xl hover:-translate-y-1 transition-all relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity" style={{ background: "var(--brand-blue)" }} />
+              <div className="h-12 w-12 rounded-xl grid place-items-center mb-5" style={{ background: "var(--gradient-brand)" }}>
+                <s.icon className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold">{s.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+              <a href="#contact" className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-foreground group-hover:gap-2 transition-all">
+                Learn more <ArrowRight className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function ServiceColumn({ label, items }: { label: string; items: { icon: any; title: string; desc: string }[] }) {
-  return (
-    <div>
-      <div className="flex items-center gap-3 mb-6">
-        <span className="h-px flex-1 bg-white/10" />
-        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
-        <span className="h-px flex-1 bg-white/10" />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {items.map(({ icon: Icon, title, desc }) => (
-          <div
-            key={title}
-            className="glass group p-5 relative transition-all hover:-translate-y-1"
-            style={{}}
-          >
-            <div className="absolute inset-0 rounded-[inherit] opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-              style={{ boxShadow: "var(--shadow-glow)" }} />
-            <div className="relative">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg"
-                style={{ background: "var(--gradient-brand)" }}>
-                <Icon className="h-5 w-5 text-white" />
-              </div>
-              <h3 className="mt-4 font-semibold text-foreground">{title}</h3>
-              <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
   );
 }
 
 /* ---------- PORTFOLIO ---------- */
 function Portfolio() {
-  const items = {
-    farewell: [
-      { title: "Farewell 2K25 — CSE Batch", tag: "Farewell Site" },
-      { title: "Seniors' Send-off — MBA", tag: "Memory Wall" },
-      { title: "Class of '25 Yearbook", tag: "Interactive" },
-    ],
-    fest: [
-      { title: "TECHFEST '25 Landing", tag: "College Fest" },
-      { title: "CultuRex Sports Meet", tag: "Registration" },
-      { title: "Hackathon Convergence", tag: "Live Timer" },
-    ],
-    php: [
-      { title: "Hospital Management System", tag: "PHP + MySQL" },
-      { title: "Library E-Portal", tag: "PHP + MySQL" },
-      { title: "Online Voting System", tag: "PHP + MySQL" },
-    ],
-    docs: [
-      { title: "IEEE Format Report — AI Chatbot", tag: "Documentation" },
-      { title: "Blockchain Voting — Synopsis", tag: "Synopsis" },
-      { title: "Mini Project Report Template", tag: "Template" },
-    ],
-    biz: [
-      { title: "FitTrack — SaaS Dashboard", tag: "Case Study" },
-      { title: "GoLogix — Fleet CRM", tag: "Case Study" },
-      { title: "Brewly — Cafe Ordering", tag: "Case Study" },
-    ],
-  } as const;
-
-  const tabs: { key: keyof typeof items; label: string }[] = [
-    { key: "farewell", label: "Farewell 2K25" },
-    { key: "fest", label: "Fest Landing" },
-    { key: "php", label: "PHP / MySQL" },
-    { key: "docs", label: "Documentation" },
-    { key: "biz", label: "Business" },
+  const projects = [
+    {
+      title: "Student Complaint System",
+      body: "A web-based platform for students to submit complaints and for administrators to track and resolve them.",
+      stack: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
+    },
+    {
+      title: "AI Chatbot",
+      body: "An AI-powered chatbot application exploring conversational interfaces and modern language models.",
+      stack: ["Python", "AI/ML", "JavaScript"],
+    },
+    {
+      title: "Farewell Website",
+      body: "A themed event website built for a college farewell — memories, gallery, and event details.",
+      stack: ["React", "TypeScript", "CSS"],
+    },
   ];
-
   return (
-    <section id="portfolio" className="py-24">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionHeader kicker="Portfolio" title="Sample work & case studies" sub="Filter by category to see the format that matches your need." />
-        <div className="mt-10">
-          <Tabs defaultValue="farewell">
-            <TabsList className="flex flex-wrap gap-2 h-auto bg-transparent p-0 justify-center">
-              {tabs.map((t) => (
-                <TabsTrigger
-                  key={t.key}
-                  value={t.key}
-                  className="rounded-full glass data-[state=active]:text-white data-[state=active]:border-transparent px-4 py-2 text-sm"
-                  style={{}}
-                >
-                  {t.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-            {tabs.map((t) => (
-              <TabsContent key={t.key} value={t.key} className="mt-8">
-                <div className="grid md:grid-cols-3 gap-5">
-                  {items[t.key].map((it, i) => (
-                    <div key={it.title} className="glass overflow-hidden group">
-                      <div
-                        className="aspect-video relative overflow-hidden"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, oklch(0.62 0.24 260 / 0.4), oklch(0.85 0.18 210 / 0.4))",
-                        }}
-                      >
-                        <div className="absolute inset-0 grid-bg opacity-30" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <Sparkles className="h-10 w-10 text-white/70 group-hover:scale-110 transition" />
-                        </div>
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-black/50 backdrop-blur border-white/10 text-white text-xs">
-                            #{String(i + 1).padStart(2, "0")}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <div className="text-xs text-muted-foreground">{it.tag}</div>
-                        <h3 className="mt-1 font-semibold">{it.title}</h3>
-                        <div className="mt-4 flex gap-2">
-                          <Button size="sm" className="btn-glow rounded-full h-8 px-4 text-xs">Live Demo</Button>
-                          <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("I want something similar to: " + it.title)}`} target="_blank" rel="noopener noreferrer">
-                            <Button size="sm" variant="outline" className="rounded-full h-8 px-4 text-xs border-white/20 bg-white/5">
-                              Request Similar
-                            </Button>
-                          </a>
-                        </div>
-                      </div>
+    <section id="portfolio" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Portfolio" title="Real projects we've built" subtitle="A small, honest showcase — more coming as we ship." />
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
+          {projects.map((p) => (
+            <article key={p.title} className="glass rounded-2xl overflow-hidden hover:-translate-y-1 transition-transform flex flex-col">
+              <div className="aspect-video relative overflow-hidden bg-black/40 border-b border-white/5">
+                <div className="absolute inset-0 grid place-items-center text-xs text-muted-foreground">
+                  <div className="text-center">
+                    <div className="h-10 w-10 rounded-full mx-auto mb-2 grid place-items-center" style={{ background: "var(--gradient-brand)" }}>
+                      <Code2 className="h-4 w-4 text-white" />
                     </div>
+                    Screenshot coming soon
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <h3 className="text-lg font-semibold">{p.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{p.body}</p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {p.stack.map((t) => (
+                    <span key={t} className="text-[11px] px-2 py-1 rounded-full border border-white/10 bg-white/5 text-muted-foreground">{t}</span>
                   ))}
                 </div>
-              </TabsContent>
-            ))}
-          </Tabs>
+                <div className="mt-5 flex gap-2">
+                  <button disabled className="inline-flex items-center gap-1.5 text-xs px-3 py-2 rounded-md border border-white/10 bg-white/5 text-muted-foreground cursor-not-allowed">
+                    <Github className="h-3.5 w-3.5" /> GitHub — soon
+                  </button>
+                  <button disabled className="inline-flex items-center gap-1.5 text-xs px-3 py-2 rounded-md border border-white/10 bg-white/5 text-muted-foreground cursor-not-allowed">
+                    <ArrowRight className="h-3.5 w-3.5" /> Live demo — soon
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- TESTIMONIALS ---------- */
-function Testimonials() {
-  const list = [
-    { name: "Aditi R.", role: "CSE Final Year", quote: "Got my mini project + report in 48 hours. Viva walkthrough was clutch — passed with distinction." },
-    { name: "Rahul M.", role: "Event Head, TECHFEST", quote: "Landing page + registration flow shipped in 2 days. Reduced our manual work by 80%." },
-    { name: "Priya S.", role: "Founder, GoLogix", quote: "They built our fleet CRM MVP in 3 weeks. Clean code, great communication, honest pricing." },
-    { name: "Kabir V.", role: "MBA Batch of 25", quote: "Our farewell site went viral in college. Beautiful design and every classmate got a memory card." },
-  ];
+/* ---------- TECHNOLOGIES ---------- */
+function Technologies() {
+  const tech = ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Node.js", "Python", "PHP", "MySQL", "MongoDB", "Git", "GitHub", "AWS"];
   return (
-    <section className="py-24 relative">
-      <div className="mx-auto max-w-6xl px-4">
-        <SectionHeader kicker="Loved by" title="Students & Clients" sub="Real reviews from projects delivered this year." />
-        <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {list.map((t) => (
-            <div key={t.name} className="glass p-5">
-              <div className="flex gap-1 text-[color:var(--brand-cyan)]">
-                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
-              </div>
-              <p className="mt-3 text-sm text-foreground/90 leading-relaxed">"{t.quote}"</p>
-              <div className="mt-4 border-t border-white/10 pt-3">
-                <div className="text-sm font-semibold">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.role}</div>
-              </div>
+    <section id="technologies" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Tech Stack" title="Technologies we work with" subtitle="The tools we reach for when building modern software." />
+        <div className="mt-14 flex flex-wrap justify-center gap-3">
+          {tech.map((t) => (
+            <div key={t} className="glass px-5 py-3 rounded-xl text-sm font-medium hover:-translate-y-1 transition-transform">
+              {t}
             </div>
           ))}
         </div>
@@ -491,28 +427,91 @@ function Testimonials() {
   );
 }
 
-/* ---------- FAQ ---------- */
-function FAQ() {
-  const faqs = [
-    { q: "Do you explain the code for my viva?", a: "Yes — every college project ships with a walkthrough call, inline comments, and short notes so you can defend it confidently." },
-    { q: "Can I request revisions?", a: "Absolutely. Free minor revisions are included within scope. Bigger changes are quoted transparently before we start." },
-    { q: "How do payments work?", a: "50% advance to lock your slot, 50% on delivery/demo. UPI, bank transfer, and international transfers are all supported." },
-    { q: "Do you handle business contracts?", a: "Yes — for client engagements we sign NDAs and formal SOWs. Enterprise invoicing and GST bills available." },
-    { q: "What if I need 24-hour delivery?", a: "Super Express slots are limited each week. Ping us on WhatsApp with the brief and we'll confirm feasibility instantly." },
-    { q: "Is the report actually plagiarism-free?", a: "Every report is written from scratch and passes Turnitin. We share the similarity report with your final delivery." },
+/* ---------- WHY CHOOSE US ---------- */
+function WhyChooseUs() {
+  const items = [
+    { icon: Zap, title: "Fast Development", body: "Focused iterations and quick turnaround without cutting corners." },
+    { icon: Code2, title: "Clean Code", body: "Readable, maintainable code you can hand off to any developer." },
+    { icon: Smartphone, title: "Responsive Design", body: "Every interface built mobile-first and tested across devices." },
+    { icon: ShieldCheck, title: "Secure Applications", body: "Security-conscious defaults — auth, validation, and safe data handling." },
+    { icon: Sparkles, title: "Modern Technologies", body: "A current stack chosen for performance and long-term stability." },
+    { icon: LifeBuoy, title: "Reliable Support", body: "Direct communication and honest updates throughout the build." },
   ];
   return (
-    <section id="faq" className="py-24">
-      <div className="mx-auto max-w-3xl px-4">
-        <SectionHeader kicker="FAQ" title="Answered before you ask" />
-        <Accordion type="single" collapsible className="mt-10 space-y-3">
-          {faqs.map((f, i) => (
-            <AccordionItem key={i} value={String(i)} className="glass px-5 border-0">
-              <AccordionTrigger className="text-left hover:no-underline">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
-            </AccordionItem>
+    <section className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Why AB Software" title="Built to be dependable" subtitle="The principles we bring to every project." />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+          {items.map((i) => (
+            <div key={i.title} className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform">
+              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4 border border-white/10 bg-white/5">
+                <i.icon className="h-5 w-5" style={{ color: "var(--brand-cyan)" }} />
+              </div>
+              <h3 className="text-base font-semibold">{i.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{i.body}</p>
+            </div>
           ))}
-        </Accordion>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- PROCESS ---------- */
+function Process() {
+  const steps = [
+    { icon: Search, title: "Discovery", body: "Understand your goals, users, and constraints." },
+    { icon: ClipboardList, title: "Planning", body: "Scope, timeline, and architecture agreed up front." },
+    { icon: PenTool, title: "UI/UX Design", body: "Clean, functional interfaces reviewed together." },
+    { icon: Terminal, title: "Development", body: "Iterative builds with regular updates." },
+    { icon: TestTube2, title: "Testing", body: "Manual and automated checks before launch." },
+    { icon: Rocket, title: "Deployment", body: "Smooth release on modern infrastructure." },
+    { icon: LifeBuoy, title: "Support", body: "Ongoing maintenance and improvements." },
+  ];
+  return (
+    <section id="process" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Process" title="How we work" subtitle="A transparent, step-by-step workflow." />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+          {steps.map((s, i) => (
+            <div key={s.title} className="glass p-6 rounded-2xl relative">
+              <span className="absolute top-4 right-4 text-xs text-muted-foreground font-mono">0{i + 1}</span>
+              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4" style={{ background: "var(--gradient-brand)" }}>
+                <s.icon className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-base font-semibold">{s.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- TRUST (real signals only) ---------- */
+function Trust() {
+  const items = [
+    { icon: Github, title: "GitHub", body: "Follow our open work and contributions.", href: CONTACT.github, cta: "Visit GitHub" },
+    { icon: Server, title: "Live Projects", body: "Real projects, listed in the Portfolio section above.", href: "#portfolio", cta: "See portfolio" },
+    { icon: GitBranch, title: "Development Workflow", body: "Git-based workflow, code review, and clear release process.", href: "#process", cta: "See process" },
+  ];
+  return (
+    <section className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Transparency" title="Signals you can actually verify" subtitle="No fake logos, no invented statistics — just real links to real work." />
+        <div className="grid md:grid-cols-3 gap-5 mt-14">
+          {items.map((i) => (
+            <a key={i.title} href={i.href} target={i.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform block">
+              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4 border border-white/10 bg-white/5">
+                <i.icon className="h-5 w-5" style={{ color: "var(--brand-cyan)" }} />
+              </div>
+              <h3 className="text-base font-semibold">{i.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{i.body}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium">{i.cta} <ArrowRight className="h-3 w-3" /></span>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -520,184 +519,148 @@ function FAQ() {
 
 /* ---------- CONTACT ---------- */
 function Contact() {
-  const [form, setForm] = useState({
-    name: "", org: "", type: "Custom Website", deadline: "", budget: "", whatsapp: "", notes: "",
-  });
-  const set = (k: string, v: string) => setForm((f) => ({ ...f, [k]: v }));
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const msg = encodeURIComponent(
-      `New Inquiry — AB_SOFTWARE__\n\n` +
-      `Name: ${form.name}\nOrg/College: ${form.org}\nProject: ${form.type}\n` +
-      `Deadline: ${form.deadline}\nBudget: ${form.budget}\nWhatsApp: ${form.whatsapp}\n\nNotes: ${form.notes}`
-    );
-    window.open(`https://wa.me/${WHATSAPP}?text=${msg}`, "_blank");
-  };
-
   return (
-    <section id="contact" className="py-24 relative">
-      <div className="mx-auto max-w-5xl px-4">
-        <SectionHeader kicker="Contact" title="Tell us about your project" sub="Fill it out or ping us directly — replies within 30 minutes on WhatsApp." />
-        <div className="mt-12 grid lg:grid-cols-5 gap-6">
-          <form onSubmit={submit} className="glass p-6 md:p-8 lg:col-span-3 space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <Field label="Your name" v={form.name} onChange={(v) => set("name", v)} required />
-              <Field label="College / Company" v={form.org} onChange={(v) => set("org", v)} />
-            </div>
-            <div>
-              <Label className="text-xs uppercase tracking-wider text-muted-foreground">Project type</Label>
-              <Select value={form.type} onValueChange={(v) => set("type", v)}>
-                <SelectTrigger className="mt-2 h-11 bg-white/5 border-white/10"><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {Object.keys(SERVICE_PRICES).map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              <Field label="Deadline" v={form.deadline} onChange={(v) => set("deadline", v)} placeholder="e.g. 5 days" />
-              <Field label="Budget (₹)" v={form.budget} onChange={(v) => set("budget", v)} placeholder="e.g. 5000" />
-              <Field label="WhatsApp" v={form.whatsapp} onChange={(v) => set("whatsapp", v)} placeholder="+91…" required />
-            </div>
-            <div>
-              <Label className="text-xs uppercase tracking-wider text-muted-foreground">Notes</Label>
-              <Textarea value={form.notes} onChange={(e) => set("notes", e.target.value)} rows={4} className="mt-2 bg-white/5 border-white/10" placeholder="Anything we should know…" />
-            </div>
-            <Button type="submit" size="lg" className="btn-glow rounded-full h-12 px-6 w-full md:w-auto">
-              <Send className="mr-2 h-4 w-4" /> Send Inquiry via WhatsApp
-            </Button>
-          </form>
+    <section id="contact" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader eyebrow="Contact" title="Let's build something" subtitle="Reach out directly — we usually reply within a day." />
 
-          <div className="glass p-6 md:p-8 lg:col-span-2 space-y-4">
-            <h3 className="font-[Space_Grotesk] text-xl font-bold">Direct channels</h3>
-            <p className="text-sm text-muted-foreground">The fastest way to reach us — pick your platform.</p>
-            <div className="space-y-2 pt-2">
-              <SocialRow icon={MessageCircle} label="WhatsApp" hint="Fastest, live replies" href={`https://wa.me/${WHATSAPP}`} />
-              <SocialRow icon={Send} label="Telegram" hint="@ab_software" href="https://t.me/ab_software" />
-              <SocialRow icon={Instagram} label="Instagram" hint="@ab_software__" href="https://instagram.com" />
-              <SocialRow icon={Linkedin} label="LinkedIn" hint="AB_SOFTWARE__" href="https://linkedin.com" />
+        <div className="grid md:grid-cols-2 gap-5 mt-14 max-w-4xl mx-auto">
+          <a href={CONTACT.phoneHref} className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform flex items-start gap-4">
+            <div className="h-11 w-11 shrink-0 rounded-xl grid place-items-center" style={{ background: "var(--gradient-brand)" }}><Phone className="h-5 w-5 text-white" /></div>
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">Phone</div>
+              <div className="font-medium truncate">{CONTACT.phone}</div>
             </div>
-            <div className="mt-4 border-t border-white/10 pt-4 text-xs text-muted-foreground space-y-2">
-              <div className="flex items-center gap-2"><Check className="h-3 w-3 text-[color:var(--brand-cyan)]" /> NDA & formal contracts on request</div>
-              <div className="flex items-center gap-2"><Check className="h-3 w-3 text-[color:var(--brand-cyan)]" /> GST invoices for businesses</div>
-              <div className="flex items-center gap-2"><Check className="h-3 w-3 text-[color:var(--brand-cyan)]" /> 30-min avg. reply time</div>
+          </a>
+          <a href={`mailto:${CONTACT.email}`} className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform flex items-start gap-4">
+            <div className="h-11 w-11 shrink-0 rounded-xl grid place-items-center" style={{ background: "var(--gradient-brand)" }}><Mail className="h-5 w-5 text-white" /></div>
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">Email</div>
+              <div className="font-medium truncate">{CONTACT.email}</div>
+            </div>
+          </a>
+          <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform flex items-start gap-4">
+            <div className="h-11 w-11 shrink-0 rounded-xl grid place-items-center" style={{ background: "var(--gradient-brand)" }}><Linkedin className="h-5 w-5 text-white" /></div>
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">LinkedIn</div>
+              <div className="font-medium truncate">abhishek-ck0000</div>
+            </div>
+          </a>
+          <a href={CONTACT.instagram} target="_blank" rel="noreferrer" className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform flex items-start gap-4">
+            <div className="h-11 w-11 shrink-0 rounded-xl grid place-items-center" style={{ background: "var(--gradient-brand)" }}><Instagram className="h-5 w-5 text-white" /></div>
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">Instagram</div>
+              <div className="font-medium truncate">{CONTACT.instagramHandle}</div>
+            </div>
+          </a>
+          <div className="glass p-6 rounded-2xl md:col-span-2 flex items-start gap-4">
+            <div className="h-11 w-11 shrink-0 rounded-xl grid place-items-center" style={{ background: "var(--gradient-brand)" }}><MapPin className="h-5 w-5 text-white" /></div>
+            <div className="min-w-0">
+              <div className="text-xs text-muted-foreground">Location</div>
+              <div className="font-medium">{CONTACT.location}</div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-10 text-center">
+          <a href={`mailto:${CONTACT.email}`}>
+            <Button size="lg" className="btn-glow rounded-full h-12 px-7">
+              Start a project <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-function Field({ label, v, onChange, placeholder, required }: { label: string; v: string; onChange: (v: string) => void; placeholder?: string; required?: boolean }) {
-  return (
-    <div>
-      <Label className="text-xs uppercase tracking-wider text-muted-foreground">{label}</Label>
-      <Input value={v} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} required={required}
-        className="mt-2 h-11 bg-white/5 border-white/10" />
-    </div>
-  );
-}
-
-function SocialRow({ icon: Icon, label, hint, href }: { icon: any; label: string; hint: string; href: string }) {
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer"
-      className="flex items-center gap-3 rounded-lg px-3 py-3 bg-white/5 border border-white/10 hover:border-[color:var(--brand-cyan)]/50 hover:bg-white/10 transition">
-      <div className="inline-flex h-9 w-9 items-center justify-center rounded-md" style={{ background: "var(--gradient-brand)" }}>
-        <Icon className="h-4 w-4 text-white" />
-      </div>
-      <div className="flex-1">
-        <div className="text-sm font-semibold">{label}</div>
-        <div className="text-xs text-muted-foreground">{hint}</div>
-      </div>
-      <ArrowRight className="h-4 w-4 text-muted-foreground" />
-    </a>
-  );
-}
-
 /* ---------- FOOTER ---------- */
 function Footer() {
   return (
-    <footer className="border-t border-white/10 mt-12">
-      <div className="mx-auto max-w-6xl px-4 py-10 text-center text-sm text-muted-foreground">
-        <div className="font-[Space_Grotesk] font-bold text-foreground">
-          AB_SOFTWARE<span className="text-gradient">__</span>
+    <footer className="border-t border-white/10 pt-16 pb-8 mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid md:grid-cols-4 gap-10">
+          <div className="md:col-span-2">
+            <a href="#home" className="flex items-center gap-2 font-bold text-lg">
+              <span className="grid place-items-center h-8 w-8 rounded-lg text-white" style={{ background: "var(--gradient-brand)" }}>
+                <Code2 className="h-4 w-4" />
+              </span>
+              <span>AB<span className="text-gradient">Software</span></span>
+            </a>
+            <p className="mt-4 text-sm text-muted-foreground max-w-sm">
+              Building modern software solutions for businesses — websites, custom software, AI applications, and more.
+            </p>
+            <div className="mt-5 flex gap-2">
+              <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Github className="h-4 w-4" /></a>
+              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Linkedin className="h-4 w-4" /></a>
+              <a href={CONTACT.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Instagram className="h-4 w-4" /></a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold mb-4">Quick Links</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href="#about" className="hover:text-foreground">About</a></li>
+              <li><a href="#services" className="hover:text-foreground">Services</a></li>
+              <li><a href="#portfolio" className="hover:text-foreground">Portfolio</a></li>
+              <li><a href="#process" className="hover:text-foreground">Process</a></li>
+              <li><a href="#contact" className="hover:text-foreground">Contact</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold mb-4">Contact</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li><a href={CONTACT.phoneHref} className="hover:text-foreground">{CONTACT.phone}</a></li>
+              <li><a href={`mailto:${CONTACT.email}`} className="hover:text-foreground break-all">{CONTACT.email}</a></li>
+              <li>{CONTACT.location}</li>
+            </ul>
+          </div>
         </div>
-        <p className="mt-2">Built for Students & Businesses, By Developers.</p>
-        <p className="mt-4 text-xs">© {new Date().getFullYear()} AB_SOFTWARE__ · All rights reserved.</p>
+
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
+          <div>© {new Date().getFullYear()} AB Software. All rights reserved.</div>
+          <div className="flex gap-5">
+            <a href="#" className="hover:text-foreground">Privacy Policy</a>
+            <a href="#" className="hover:text-foreground">Terms & Conditions</a>
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
 
-/* ---------- STICKY WHATSAPP ---------- */
-function StickyWhatsApp() {
-  return (
-    <a
-      href={`https://wa.me/${WHATSAPP}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full pl-2 pr-4 py-2 btn-glow animate-pulse-glow"
-      aria-label="Chat on WhatsApp"
-    >
-      <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/15">
-        <MessageCircle className="h-5 w-5 text-white" />
-      </span>
-      <span className="hidden sm:inline text-sm font-semibold text-white">Chat now</span>
-    </a>
-  );
-}
-
-/* ---------- EXIT INTENT ---------- */
-function ExitPopup() {
-  const [open, setOpen] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
-
+/* ---------- SCROLL TO TOP ---------- */
+function ScrollTop() {
+  const [show, setShow] = useState(false);
   useEffect(() => {
-    if (dismissed) return;
-    const handler = (e: MouseEvent) => {
-      if (e.clientY < 10 && !dismissed) {
-        setOpen(true);
-        setDismissed(true);
-      }
-    };
-    document.addEventListener("mouseleave", handler);
-    return () => document.removeEventListener("mouseleave", handler);
-  }, [dismissed]);
-
-  if (!open) return null;
+    const on = () => setShow(window.scrollY > 600);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  if (!show) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4" onClick={() => setOpen(false)}>
-      <div className="glass max-w-md w-full p-8 relative" onClick={(e) => e.stopPropagation()}>
-        <button className="absolute top-3 right-3 text-muted-foreground hover:text-foreground" onClick={() => setOpen(false)} aria-label="Close">
-          <X className="h-5 w-5" />
-        </button>
-        <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: "var(--gradient-brand)" }}>
-          <Sparkles className="h-6 w-6 text-white" />
-        </div>
-        <h3 className="mt-4 font-[Space_Grotesk] text-2xl font-bold">Wait — grab this before you go</h3>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Get our <span className="text-foreground font-semibold">free IEEE report template</span> + a
-          <span className="text-gradient font-semibold"> 10% discount</span> on your first order.
-        </p>
-        <a href={`https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Send me the free IEEE template + 10% discount code!")}`}
-          target="_blank" rel="noopener noreferrer">
-          <Button className="btn-glow rounded-full h-11 px-5 mt-6 w-full">
-            Claim on WhatsApp <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </a>
-      </div>
-    </div>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className="fixed bottom-6 right-6 z-40 h-11 w-11 rounded-full grid place-items-center text-white shadow-lg animate-pulse-glow"
+      style={{ background: "var(--gradient-brand)" }}
+      aria-label="Scroll to top"
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
   );
 }
 
 /* ---------- SHARED ---------- */
-function SectionHeader({ kicker, title, sub }: { kicker: string; title: string; sub?: string }) {
+function SectionHeader({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
   return (
     <div className="text-center max-w-2xl mx-auto">
-      <div className="text-xs uppercase tracking-[0.25em] text-[color:var(--brand-cyan)] font-semibold">{kicker}</div>
-      <h2 className="mt-3 font-[Space_Grotesk] text-3xl md:text-5xl font-bold tracking-tight">{title}</h2>
-      {sub && <p className="mt-3 text-muted-foreground">{sub}</p>}
+      <div className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-gradient mb-3">{eyebrow}</div>
+      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight" style={{ fontFamily: "'Space Grotesk', Inter, sans-serif" }}>
+        {title}
+      </h2>
+      {subtitle && <p className="mt-4 text-base text-muted-foreground">{subtitle}</p>}
     </div>
   );
 }
