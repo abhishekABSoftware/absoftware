@@ -80,10 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "AB_SOFTWARE__ | Custom Websites, College Projects & SaaS Development" },
       { name: "description", content: "AB_SOFTWARE__ builds custom websites, college projects, event sites, plagiarism-free reports and full-stack SaaS. 24-48h express delivery available." },
       { name: "author", content: "AB_SOFTWARE__" },
-      { property: "og:title", content: "AB_SOFTWARE__ — We Code Your Ideas Into Reality" },
-      { property: "og:description", content: "Custom Websites, Mini Projects, Full Stack Apps, Event Sites & Reports for students and businesses." },
+      { property: "og:title", content: "AB_SOFTWARE__ | Custom Websites, College Projects & SaaS Development" },
+      { property: "og:description", content: "AB_SOFTWARE__ builds custom websites, college projects, event sites, plagiarism-free reports and full-stack SaaS. 24-48h express delivery available." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "AB_SOFTWARE__ | Custom Websites, College Projects & SaaS Development" },
+      { name: "twitter:description", content: "AB_SOFTWARE__ builds custom websites, college projects, event sites, plagiarism-free reports and full-stack SaaS. 24-48h express delivery available." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f8e63eff-5bfa-4ea3-bdbc-a993bf07dd56/id-preview-cfec8d49--16388ae9-2a83-4f37-98c8-fcf7bae2a9e2.lovable.app-1784634712044.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f8e63eff-5bfa-4ea3-bdbc-a993bf07dd56/id-preview-cfec8d49--16388ae9-2a83-4f37-98c8-fcf7bae2a9e2.lovable.app-1784634712044.png" },
     ],
     links: [
       {
