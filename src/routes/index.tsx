@@ -152,8 +152,8 @@ function Nav() {
           >
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <a href="#contact" className="hidden sm:inline-flex">
-            <Button className="btn-glow rounded-full">Get in touch</Button>
+          <a href="/request" className="hidden sm:inline-flex">
+            <Button className="btn-glow rounded-full">Request a Service</Button>
           </a>
           <button
             className="lg:hidden grid place-items-center h-9 w-9 rounded-md border border-white/10"
@@ -178,8 +178,8 @@ function Nav() {
                 {n.label}
               </a>
             ))}
-            <a href="#contact" onClick={() => setOpen(false)} className="mt-2">
-              <Button className="btn-glow rounded-full w-full">Get in touch</Button>
+            <a href="/request" onClick={() => setOpen(false)} className="mt-2">
+              <Button className="btn-glow rounded-full w-full">Request a Service</Button>
             </a>
           </div>
         </div>
@@ -214,9 +214,9 @@ function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="#contact">
+          <a href="/request">
             <Button size="lg" className="btn-glow rounded-full h-12 px-7 text-base">
-              Get Free Consultation <ArrowRight className="ml-2 h-4 w-4" />
+              Request a Service <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </a>
           <a href="#portfolio">
