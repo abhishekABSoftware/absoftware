@@ -5,8 +5,10 @@ import {
   Instagram, Mail, Phone, MapPin, Menu, X, ArrowUp, Sun, Moon,
   Search, ClipboardList, PenTool, Terminal, TestTube2, Rocket, LifeBuoy,
   Zap, ShieldCheck, Smartphone, Sparkles, Server, GitBranch, Target, Eye, Heart,
+  PartyPopper, Cake, Gift, Camera, QrCode, Users, CalendarHeart, Baby, Home as HomeIcon, GraduationCap, CalendarDays, Mic2, ScrollText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/ab-software-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -42,6 +44,7 @@ function LandingPage() {
         <Hero />
         <About />
         <Services />
+        <EventServices />
         <Portfolio />
         <Technologies />
         <WhyChooseUs />
