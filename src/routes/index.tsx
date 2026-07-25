@@ -124,9 +124,7 @@ function Nav() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 font-bold text-lg tracking-tight">
-          <span className="grid place-items-center h-8 w-8 rounded-lg text-white" style={{ background: "var(--gradient-brand)" }}>
-            <Code2 className="h-4 w-4" />
-          </span>
+          <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
           <span>AB<span className="text-gradient">Software</span></span>
         </a>
 
@@ -585,9 +583,7 @@ function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <a href="#home" className="flex items-center gap-2 font-bold text-lg">
-              <span className="grid place-items-center h-8 w-8 rounded-lg text-white" style={{ background: "var(--gradient-brand)" }}>
-                <Code2 className="h-4 w-4" />
-              </span>
+              <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
               <span>AB<span className="text-gradient">Software</span></span>
             </a>
             <p className="mt-4 text-sm text-muted-foreground max-w-sm">
