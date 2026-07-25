@@ -29,6 +29,7 @@ const NAV = [
   { id: "home", label: "Home" },
   { id: "about", label: "About" },
   { id: "services", label: "Services" },
+  { id: "events", label: "Events" },
   { id: "portfolio", label: "Portfolio" },
   { id: "technologies", label: "Technologies" },
   { id: "process", label: "Process" },
