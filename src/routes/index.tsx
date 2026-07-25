@@ -348,6 +348,56 @@ function Services() {
   );
 }
 
+/* ---------- EVENT & FAMILY FUNCTION SERVICES ---------- */
+function EventServices() {
+  const items = [
+    { icon: CalendarHeart, title: "Wedding Invitation Websites", body: "Elegant online wedding invites with your story, event details, and love-story timeline." },
+    { icon: Mail, title: "Digital Wedding Invitations", body: "Shareable digital invites for WhatsApp, email, and social — beautiful on any device." },
+    { icon: ClipboardList, title: "Wedding RSVP Websites", body: "Collect guest RSVPs, meal choices, and plus-ones with a clean dashboard." },
+    { icon: Cake, title: "Birthday Invitation Websites", body: "Themed birthday invitation pages for kids, teens, and milestone birthdays." },
+    { icon: Gift, title: "Engagement Websites", body: "Engagement announcements, event schedule, venue, and photo gallery in one link." },
+    { icon: Heart, title: "Anniversary Websites", body: "Celebrate anniversaries with a personalized site — journey, photos, and event invites." },
+    { icon: Baby, title: "Baby Shower Invitation Websites", body: "Sweet, personalized baby-shower pages with RSVP and gift-registry links." },
+    { icon: HomeIcon, title: "Housewarming Invitation Websites", body: "Warm, modern invites for your Griha Pravesh / housewarming with directions and RSVP." },
+    { icon: Sparkles, title: "Naming Ceremony Invitation Websites", body: "Traditional naming ceremony invites with baby details, event schedule, and RSVP." },
+    { icon: GraduationCap, title: "Farewell & Reunion Websites", body: "Memory-book style sites for farewells and reunions — gallery, wishes, and event info." },
+    { icon: CalendarDays, title: "Event Registration Websites", body: "Public event pages with online registration, ticketing links, and confirmation flow." },
+    { icon: Camera, title: "Event Photo & Video Gallery Websites", body: "Share event highlights with private or public photo & video galleries." },
+    { icon: QrCode, title: "QR Code Invitation Pages", body: "Printable QR codes that open a beautiful invite page — perfect for cards and stationery." },
+    { icon: Users, title: "Personalized Family Event Websites", body: "Custom family event websites — any occasion, tailored to your traditions and theme." },
+  ];
+  return (
+    <section id="events" className="py-24 sm:py-32 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        <SectionHeader
+          eyebrow="Event & Family Function Websites"
+          title="Beautiful websites for every celebration"
+          subtitle="From weddings to baby showers — personalized event websites with RSVP, galleries, and QR-code invites."
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
+          {items.map((s) => (
+            <div key={s.title} className="group glass p-6 rounded-2xl hover:-translate-y-1 transition-all relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity" style={{ background: "var(--brand-cyan, var(--brand-blue))" }} />
+              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4" style={{ background: "var(--gradient-brand)" }}>
+                <s.icon className="h-5 w-5 text-white" />
+              </div>
+              <h3 className="text-base font-semibold">{s.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-12 text-center">
+          <a href="/request">
+            <Button className="btn-glow rounded-full h-12 px-8">
+              Book Your Event Website <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- PORTFOLIO ---------- */
 function Portfolio() {
   const projects = [
