@@ -30,7 +30,6 @@ const NAV = [
   { id: "about", label: "About" },
   { id: "services", label: "Services" },
   { id: "events", label: "Events" },
-  { id: "portfolio", label: "Portfolio" },
   { id: "technologies", label: "Technologies" },
   { id: "process", label: "Process" },
   { id: "contact", label: "Contact" },
@@ -46,7 +45,6 @@ function LandingPage() {
         <About />
         <Services />
         <EventServices />
-        <Portfolio />
         <Technologies />
         <WhyChooseUs />
         <Process />
@@ -221,9 +219,9 @@ function Hero() {
               Request a Service <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </a>
-          <a href="#portfolio">
+          <a href="#services">
             <Button size="lg" variant="outline" className="rounded-full h-12 px-7 text-base border-white/15 bg-white/5 hover:bg-white/10">
-              View Our Work
+              Explore Services
             </Button>
           </a>
         </div>
@@ -545,7 +543,7 @@ function Process() {
 function Trust() {
   const items = [
     { icon: Github, title: "GitHub", body: "Follow our open work and contributions.", href: CONTACT.github, cta: "Visit GitHub" },
-    { icon: Server, title: "Live Projects", body: "Real projects, listed in the Portfolio section above.", href: "#portfolio", cta: "See portfolio" },
+    { icon: Server, title: "Services", body: "Everything we build, listed openly in the Services section.", href: "#services", cta: "See services" },
     { icon: GitBranch, title: "Development Workflow", body: "Git-based workflow, code review, and clear release process.", href: "#process", cta: "See process" },
   ];
   return (
@@ -652,7 +650,7 @@ function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href="#about" className="hover:text-foreground">About</a></li>
               <li><a href="#services" className="hover:text-foreground">Services</a></li>
-              <li><a href="#portfolio" className="hover:text-foreground">Portfolio</a></li>
+              <li><a href="#events" className="hover:text-foreground">Events</a></li>
               <li><a href="#process" className="hover:text-foreground">Process</a></li>
               <li><a href="#contact" className="hover:text-foreground">Contact</a></li>
             </ul>
