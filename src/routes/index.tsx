@@ -30,7 +30,6 @@ const NAV = [
   { id: "about", label: "About" },
   { id: "services", label: "Services" },
   { id: "events", label: "Events" },
-  { id: "portfolio", label: "Portfolio" },
   { id: "technologies", label: "Technologies" },
   { id: "process", label: "Process" },
   { id: "contact", label: "Contact" },
@@ -46,7 +45,6 @@ function LandingPage() {
         <About />
         <Services />
         <EventServices />
-        <Portfolio />
         <Technologies />
         <WhyChooseUs />
         <Process />
@@ -221,9 +219,9 @@ function Hero() {
               Request a Service <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </a>
-          <a href="#portfolio">
+          <a href="#services">
             <Button size="lg" variant="outline" className="rounded-full h-12 px-7 text-base border-white/15 bg-white/5 hover:bg-white/10">
-              View Our Work
+              Explore Services
             </Button>
           </a>
         </div>
@@ -399,67 +397,6 @@ function EventServices() {
   );
 }
 
-/* ---------- PORTFOLIO ---------- */
-function Portfolio() {
-  const projects = [
-    {
-      title: "Student Complaint System",
-      body: "A web-based platform for students to submit complaints and for administrators to track and resolve them.",
-      stack: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
-    },
-    {
-      title: "AI Chatbot",
-      body: "An AI-powered chatbot application exploring conversational interfaces and modern language models.",
-      stack: ["Python", "AI/ML", "JavaScript"],
-    },
-    {
-      title: "Farewell Website",
-      body: "A themed event website built for a college farewell — memories, gallery, and event details.",
-      stack: ["React", "TypeScript", "CSS"],
-    },
-  ];
-  return (
-    <section id="portfolio" className="py-24 sm:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <SectionHeader eyebrow="Portfolio" title="Real projects we've built" subtitle="A small, honest showcase — more coming as we ship." />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-14">
-          {projects.map((p) => (
-            <article key={p.title} className="glass rounded-2xl overflow-hidden hover:-translate-y-1 transition-transform flex flex-col">
-              <div className="aspect-video relative overflow-hidden bg-black/40 border-b border-white/5">
-                <div className="absolute inset-0 grid place-items-center text-xs text-muted-foreground">
-                  <div className="text-center">
-                    <div className="h-10 w-10 rounded-full mx-auto mb-2 grid place-items-center" style={{ background: "var(--gradient-brand)" }}>
-                      <Code2 className="h-4 w-4 text-white" />
-                    </div>
-                    Screenshot coming soon
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-lg font-semibold">{p.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed flex-1">{p.body}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {p.stack.map((t) => (
-                    <span key={t} className="text-[11px] px-2 py-1 rounded-full border border-white/10 bg-white/5 text-muted-foreground">{t}</span>
-                  ))}
-                </div>
-                <div className="mt-5 flex gap-2">
-                  <button disabled className="inline-flex items-center gap-1.5 text-xs px-3 py-2 rounded-md border border-white/10 bg-white/5 text-muted-foreground cursor-not-allowed">
-                    <Github className="h-3.5 w-3.5" /> GitHub — soon
-                  </button>
-                  <button disabled className="inline-flex items-center gap-1.5 text-xs px-3 py-2 rounded-md border border-white/10 bg-white/5 text-muted-foreground cursor-not-allowed">
-                    <ArrowRight className="h-3.5 w-3.5" /> Live demo — soon
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- TECHNOLOGIES ---------- */
 function Technologies() {
   const tech = ["HTML", "CSS", "JavaScript", "TypeScript", "React", "Node.js", "Python", "PHP", "MySQL", "MongoDB", "Git", "GitHub", "AWS"];
@@ -545,7 +482,7 @@ function Process() {
 function Trust() {
   const items = [
     { icon: Github, title: "GitHub", body: "Follow our open work and contributions.", href: CONTACT.github, cta: "Visit GitHub" },
-    { icon: Server, title: "Live Projects", body: "Real projects, listed in the Portfolio section above.", href: "#portfolio", cta: "See portfolio" },
+    { icon: Server, title: "Services", body: "Everything we build, listed openly in the Services section.", href: "#services", cta: "See services" },
     { icon: GitBranch, title: "Development Workflow", body: "Git-based workflow, code review, and clear release process.", href: "#process", cta: "See process" },
   ];
   return (
@@ -652,7 +589,7 @@ function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><a href="#about" className="hover:text-foreground">About</a></li>
               <li><a href="#services" className="hover:text-foreground">Services</a></li>
-              <li><a href="#portfolio" className="hover:text-foreground">Portfolio</a></li>
+              <li><a href="#events" className="hover:text-foreground">Events</a></li>
               <li><a href="#process" className="hover:text-foreground">Process</a></li>
               <li><a href="#contact" className="hover:text-foreground">Contact</a></li>
             </ul>
