@@ -195,10 +195,10 @@ function Hero() {
       <div className="absolute inset-0 -z-10" style={{ background: "var(--gradient-hero)" }} />
       <div className="absolute inset-0 -z-10 grid-bg opacity-40" />
       {/* floating blobs */}
-      <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl opacity-30 animate-float" style={{ background: "var(--brand-blue)" }} aria-hidden />
-      <div className="absolute top-1/3 -right-24 h-80 w-80 rounded-full blur-3xl opacity-20 animate-float" style={{ background: "var(--brand-cyan)" }} aria-hidden />
+      <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full blur-3xl opacity-30 animate-float" style={{ background: "var(--brand-blue)" }} aria-hidden />
+      <div className="pointer-events-none absolute top-1/3 -right-24 h-80 w-80 rounded-full blur-3xl opacity-20 animate-float" style={{ background: "var(--brand-cyan)" }} aria-hidden />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 text-center">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs sm:text-sm mb-8">
           <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--brand-cyan)" }} />
           <span className="text-muted-foreground">A growing software startup — building in the open</span>
@@ -214,11 +214,11 @@ function Hero() {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-          <a href="/request">
+          <Link to="/request">
             <Button size="lg" className="btn-glow rounded-full h-12 px-7 text-base">
               Request a Service <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </a>
+          </Link>
           <a href="#services">
             <Button size="lg" variant="outline" className="rounded-full h-12 px-7 text-base border-white/15 bg-white/5 hover:bg-white/10">
               Explore Services
