@@ -81,5 +81,41 @@ export const submitServiceRequest = createServerFn({ method: "POST" })
       }
     }
 
+    // Web3Forms email notification to abhishek.ck.dev@gmail.com
+    const web3Key = process.env.WEB3FORMS_ACCESS_KEY;
+    if (web3Key) {
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: web3Key,
+            subject: `New Service Request from ${data.fullName}`,
+            from_name: "AB Software Website",
+            replyto: data.email,
+            "Client Name": data.fullName,
+            "Company Name": data.companyName || "-",
+            Email: data.email,
+            "Phone / WhatsApp": data.phone,
+            City: data.city || "-",
+            "Service Needed": data.serviceCategory,
+            "Service Required": data.serviceRequired,
+            Budget: data.budget || "-",
+            "Preferred Delivery Date": data.preferredDeliveryDate || "-",
+            "Preferred Contact Method": data.preferredContactMethod,
+            "Project Details": data.projectDescription,
+            "Request ID": inserted.id,
+          }),
+        });
+        if (!res.ok) {
+          console.error(`Web3Forms failed [${res.status}]: ${await res.text()}`);
+        }
+      } catch (e) {
+        console.error("Web3Forms notification failed", e);
+      }
+    } else {
+      console.warn("WEB3FORMS_ACCESS_KEY not set - email notification skipped");
+    }
+
     return { ok: true, id: inserted.id };
   });
