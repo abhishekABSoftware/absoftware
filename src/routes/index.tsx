@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
   Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Github, Linkedin,
