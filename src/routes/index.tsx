@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Github, Linkedin,
+  Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Linkedin,
   Instagram, Mail, Phone, MapPin, Menu, X, ArrowUp, Sun, Moon,
   Search, ClipboardList, PenTool, Terminal, TestTube2, Rocket, LifeBuoy,
-  Zap, ShieldCheck, Smartphone, Sparkles, Server, GitBranch, Target, Eye, Heart,
+  Zap, ShieldCheck, Smartphone, Sparkles, Target, Eye, Heart,
   PartyPopper, Cake, Gift, Camera, QrCode, Users, CalendarHeart, Baby, Home as HomeIcon, GraduationCap, CalendarDays, Mic2, ScrollText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -477,8 +477,6 @@ function Process() {
 }
 
 /* ---------- CONTACT ---------- */
-
-/* ---------- CONTACT ---------- */
 function Contact() {
   return (
     <section id="contact" className="py-24 sm:py-32 relative">
@@ -543,14 +541,13 @@ function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <a href="#home" className="flex items-center gap-2 font-bold text-lg">
-              <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
-              <span>AB<span className="text-gradient">Software</span></span>
+              <img src={logoUrl} alt="ABVertex Solutions" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
+              <span>AB<span className="text-gradient">Vertex</span> Solutions</span>
             </a>
             <p className="mt-4 text-sm text-muted-foreground max-w-sm">
               Building modern software solutions for businesses — websites, custom software, AI applications, and more.
             </p>
             <div className="mt-5 flex gap-2">
-              <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Github className="h-4 w-4" /></a>
               <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Linkedin className="h-4 w-4" /></a>
               <a href={CONTACT.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Instagram className="h-4 w-4" /></a>
             </div>
@@ -578,11 +575,7 @@ function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} AB Software. All rights reserved.</div>
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-foreground">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground">Terms & Conditions</a>
-          </div>
+          <div>© {new Date().getFullYear()} ABVertex Solutions. All rights reserved.</div>
         </div>
       </div>
     </footer>
