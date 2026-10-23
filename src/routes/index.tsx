@@ -8,7 +8,7 @@ import {
   PartyPopper, Cake, Gift, Camera, QrCode, Users, CalendarHeart, Baby, Home as HomeIcon, GraduationCap, CalendarDays, Mic2, ScrollText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoAsset from "@/assets/ab-software-logo.png.asset.json";
+import logoUrl from "@/assets/abvertex-mark.png";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -22,7 +22,6 @@ const CONTACT = {
   instagram: "https://instagram.com/ab_software__",
   instagramHandle: "@ab_software__",
   location: "Bengaluru, Karnataka, India",
-  github: "https://github.com/",
 };
 
 const NAV = [
@@ -48,7 +47,6 @@ function LandingPage() {
         <Technologies />
         <WhyChooseUs />
         <Process />
-        <Trust />
         <Contact />
       </main>
       <Footer />
@@ -123,8 +121,8 @@ function Nav() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 font-bold text-lg tracking-tight">
-          <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
-          <span>AB<span className="text-gradient">Software</span></span>
+          <img src={logoUrl} alt="ABVertex Solutions" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
+          <span>AB<span className="text-gradient">Vertex</span> Solutions</span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -209,7 +207,7 @@ function Hero() {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-          AB Software develops secure, scalable, and modern software solutions — websites, AI applications,
+          ABVertex Solutions develops secure, scalable, and modern software solutions — websites, AI applications,
           business software, and custom development tailored to client needs.
         </p>
 
@@ -234,7 +232,7 @@ function Hero() {
               <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
               <span className="h-3 w-3 rounded-full bg-green-500/70" />
             </div>
-            <pre className="text-muted-foreground overflow-x-auto"><code>{`const abSoftware = {
+            <pre className="text-muted-foreground overflow-x-auto"><code>{`const abVertex = {
   focus: ["Web", "AI", "Custom Software"],
   values: ["Quality", "Security", "Scalability"],
   build: () => "Modern solutions, tailored to you.",
