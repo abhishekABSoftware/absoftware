@@ -34,7 +34,8 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error: rawError, reset }: { error: unknown; reset: () => void }) {
+  const error = rawError instanceof Error ? rawError : new Error(String(rawError));
   console.error(error);
   const router = useRouter();
   useEffect(() => {
@@ -77,15 +78,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AB Software | Building Modern Software Solutions for Businesses" },
-      { name: "description", content: "AB Software develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
-      { name: "author", content: "AB Software" },
-      { property: "og:title", content: "AB Software | Building Modern Software Solutions for Businesses" },
-      { property: "og:description", content: "AB Software develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
+      { title: "ABVertex Solutions | Building Modern Software Solutions for Businesses" },
+      { name: "description", content: "ABVertex Solutions develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
+      { name: "author", content: "ABVertex Solutions" },
+      { property: "og:title", content: "ABVertex Solutions | Building Modern Software Solutions for Businesses" },
+      { property: "og:description", content: "ABVertex Solutions develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "AB Software | Building Modern Software Solutions for Businesses" },
-      { name: "twitter:description", content: "AB Software develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
+      { name: "twitter:title", content: "ABVertex Solutions | Building Modern Software Solutions for Businesses" },
+      { name: "twitter:description", content: "ABVertex Solutions develops secure, scalable, and modern software — websites, AI applications, business software, and custom development tailored to client needs." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f8e63eff-5bfa-4ea3-bdbc-a993bf07dd56/id-preview-cfec8d49--16388ae9-2a83-4f37-98c8-fcf7bae2a9e2.lovable.app-1784634712044.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f8e63eff-5bfa-4ea3-bdbc-a993bf07dd56/id-preview-cfec8d49--16388ae9-2a83-4f37-98c8-fcf7bae2a9e2.lovable.app-1784634712044.png" },
     ],

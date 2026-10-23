@@ -91,7 +91,7 @@ export const submitServiceRequest = createServerFn({ method: "POST" })
           body: JSON.stringify({
             access_key: web3Key,
             subject: `New Service Request from ${data.fullName}`,
-            from_name: "AB Software Website",
+            from_name: "ABVertex Solutions Website",
             replyto: data.email,
             "Client Name": data.fullName,
             "Company Name": data.companyName || "-",

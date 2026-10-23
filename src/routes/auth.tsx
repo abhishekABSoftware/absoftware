@@ -18,8 +18,8 @@ export const Route = createFileRoute("/auth")({
   validateSearch: (s) => searchSchema.parse(s),
   head: () => ({
     meta: [
-      { title: "Admin Sign in | AB Software" },
-      { name: "description", content: "Secure admin sign in for AB Software." },
+      { title: "Admin Sign in | ABVertex Solutions" },
+      { name: "description", content: "Secure admin sign in for ABVertex Solutions." },
       { name: "robots", content: "noindex" },
     ],
   }),

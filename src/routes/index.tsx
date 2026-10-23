@@ -1,14 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import {
-  Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Github, Linkedin,
+  Code2, Palette, Cloud, Wrench, Globe, ArrowRight, Linkedin,
   Instagram, Mail, Phone, MapPin, Menu, X, ArrowUp, Sun, Moon,
   Search, ClipboardList, PenTool, Terminal, TestTube2, Rocket, LifeBuoy,
-  Zap, ShieldCheck, Smartphone, Sparkles, Server, GitBranch, Target, Eye, Heart,
+  Zap, ShieldCheck, Smartphone, Sparkles, Target, Eye, Heart,
   PartyPopper, Cake, Gift, Camera, QrCode, Users, CalendarHeart, Baby, Home as HomeIcon, GraduationCap, CalendarDays, Mic2, ScrollText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logoAsset from "@/assets/ab-software-logo.png.asset.json";
+import logoUrl from "@/assets/abvertex-mark.png";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -22,7 +22,6 @@ const CONTACT = {
   instagram: "https://instagram.com/ab_software__",
   instagramHandle: "@ab_software__",
   location: "Bengaluru, Karnataka, India",
-  github: "https://github.com/",
 };
 
 const NAV = [
@@ -48,7 +47,6 @@ function LandingPage() {
         <Technologies />
         <WhyChooseUs />
         <Process />
-        <Trust />
         <Contact />
       </main>
       <Footer />
@@ -123,8 +121,8 @@ function Nav() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         <a href="#home" className="flex items-center gap-2 font-bold text-lg tracking-tight">
-          <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
-          <span>AB<span className="text-gradient">Software</span></span>
+          <img src={logoUrl} alt="ABVertex Solutions" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
+          <span>AB<span className="text-gradient">Vertex</span> Solutions</span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -209,7 +207,7 @@ function Hero() {
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-          AB Software develops secure, scalable, and modern software solutions — websites, AI applications,
+          ABVertex Solutions develops secure, scalable, and modern software solutions — websites, AI applications,
           business software, and custom development tailored to client needs.
         </p>
 
@@ -234,7 +232,7 @@ function Hero() {
               <span className="h-3 w-3 rounded-full bg-yellow-500/70" />
               <span className="h-3 w-3 rounded-full bg-green-500/70" />
             </div>
-            <pre className="text-muted-foreground overflow-x-auto"><code>{`const abSoftware = {
+            <pre className="text-muted-foreground overflow-x-auto"><code>{`const abVertex = {
   focus: ["Web", "AI", "Custom Software"],
   values: ["Quality", "Security", "Scalability"],
   build: () => "Modern solutions, tailored to you.",
@@ -262,7 +260,7 @@ function About() {
   return (
     <section id="about" className="py-24 sm:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <SectionHeader eyebrow="About" title="A growing software startup" subtitle="AB Software is an early-stage software startup focused on building quality digital solutions for businesses and creators." />
+        <SectionHeader eyebrow="About" title="A growing software startup" subtitle="ABVertex Solutions is an early-stage software startup focused on building quality digital solutions for businesses and creators." />
 
         <div className="grid md:grid-cols-3 gap-5 mt-14">
           {values.map((v) => (
@@ -278,7 +276,7 @@ function About() {
 
         <div className="grid lg:grid-cols-2 gap-6 mt-6">
           <div className="glass p-6 sm:p-8 rounded-2xl">
-            <h3 className="text-xl font-semibold mb-4">Why choose AB Software</h3>
+            <h3 className="text-xl font-semibold mb-4">Why choose ABVertex Solutions</h3>
             <ul className="space-y-3">
               {reasons.map((r) => (
                 <li key={r} className="flex items-start gap-3 text-sm text-muted-foreground">
@@ -295,11 +293,11 @@ function About() {
               <div className="h-14 w-14 rounded-full grid place-items-center text-white font-bold text-lg" style={{ background: "var(--gradient-brand)" }}>AC</div>
               <div>
                 <h3 className="text-lg font-semibold">Abhishek C K</h3>
-                <p className="text-xs text-muted-foreground">Founder — AB Software</p>
+                <p className="text-xs text-muted-foreground">Founder — ABVertex Solutions</p>
               </div>
             </div>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              Developer and founder building AB Software from the ground up. Focused on writing clean code,
+              Developer and founder building ABVertex Solutions from the ground up. Focused on writing clean code,
               shipping reliable software, and working directly with clients to understand what they actually need.
             </p>
             <div className="mt-5 flex gap-2">
@@ -429,7 +427,7 @@ function WhyChooseUs() {
   return (
     <section className="py-24 sm:py-32 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <SectionHeader eyebrow="Why AB Software" title="Built to be dependable" subtitle="The principles we bring to every project." />
+        <SectionHeader eyebrow="Why ABVertex Solutions" title="Built to be dependable" subtitle="The principles we bring to every project." />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-14">
           {items.map((i) => (
             <div key={i.title} className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform">
@@ -471,34 +469,6 @@ function Process() {
               <h3 className="text-base font-semibold">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.body}</p>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- TRUST (real signals only) ---------- */
-function Trust() {
-  const items = [
-    { icon: Github, title: "GitHub", body: "Follow our open work and contributions.", href: CONTACT.github, cta: "Visit GitHub" },
-    { icon: Server, title: "Services", body: "Everything we build, listed openly in the Services section.", href: "#services", cta: "See services" },
-    { icon: GitBranch, title: "Development Workflow", body: "Git-based workflow, code review, and clear release process.", href: "#process", cta: "See process" },
-  ];
-  return (
-    <section className="py-24 sm:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <SectionHeader eyebrow="Transparency" title="Signals you can actually verify" subtitle="No fake logos, no invented statistics — just real links to real work." />
-        <div className="grid md:grid-cols-3 gap-5 mt-14">
-          {items.map((i) => (
-            <a key={i.title} href={i.href} target={i.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className="glass p-6 rounded-2xl hover:-translate-y-1 transition-transform block">
-              <div className="h-11 w-11 rounded-xl grid place-items-center mb-4 border border-white/10 bg-white/5">
-                <i.icon className="h-5 w-5" style={{ color: "var(--brand-cyan)" }} />
-              </div>
-              <h3 className="text-base font-semibold">{i.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{i.body}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-xs font-medium">{i.cta} <ArrowRight className="h-3 w-3" /></span>
-            </a>
           ))}
         </div>
       </div>
@@ -571,14 +541,13 @@ function Footer() {
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-2">
             <a href="#home" className="flex items-center gap-2 font-bold text-lg">
-              <img src={logoAsset.url} alt="AB Software" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
-              <span>AB<span className="text-gradient">Software</span></span>
+              <img src={logoUrl} alt="ABVertex Solutions" className="h-9 w-9 rounded-lg object-contain bg-white/95 p-0.5" />
+              <span>AB<span className="text-gradient">Vertex</span> Solutions</span>
             </a>
             <p className="mt-4 text-sm text-muted-foreground max-w-sm">
               Building modern software solutions for businesses — websites, custom software, AI applications, and more.
             </p>
             <div className="mt-5 flex gap-2">
-              <a href={CONTACT.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Github className="h-4 w-4" /></a>
               <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Linkedin className="h-4 w-4" /></a>
               <a href={CONTACT.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="h-9 w-9 grid place-items-center rounded-md border border-white/10 hover:bg-white/5"><Instagram className="h-4 w-4" /></a>
             </div>
@@ -606,11 +575,7 @@ function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} AB Software. All rights reserved.</div>
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-foreground">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground">Terms & Conditions</a>
-          </div>
+          <div>© {new Date().getFullYear()} ABVertex Solutions. All rights reserved.</div>
         </div>
       </div>
     </footer>
