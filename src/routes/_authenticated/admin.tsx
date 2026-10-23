@@ -50,7 +50,7 @@ import { Badge } from "@/components/ui/badge";
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard | AB Software" },
+      { title: "Admin Dashboard | ABVertex Solutions" },
       { name: "robots", content: "noindex" },
     ],
   }),

@@ -20,13 +20,13 @@ import {
 export const Route = createFileRoute("/request")({
   head: () => ({
     meta: [
-      { title: "Request a Service | AB Software" },
+      { title: "Request a Service | ABVertex Solutions" },
       {
         name: "description",
         content:
           "Tell us about your project — websites, custom software, AI apps or maintenance. We reply within one business day.",
       },
-      { property: "og:title", content: "Request a Service | AB Software" },
+      { property: "og:title", content: "Request a Service | ABVertex Solutions" },
       {
         property: "og:description",
         content:
