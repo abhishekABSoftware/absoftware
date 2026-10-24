@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as Googleaaafc40b65e0ed60DothtmlRouteImport } from './routes/googleaaafc40b65e0ed60[.]html'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
@@ -29,6 +30,12 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Googleaaafc40b65e0ed60DothtmlRoute =
+  Googleaaafc40b65e0ed60DothtmlRouteImport.update({
+    id: '/googleaaafc40b65e0ed60.html',
+    path: '/googleaaafc40b65e0ed60.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const RequestRoute = RequestRouteImport.update({
   id: '/request',
   path: '/request',
@@ -43,12 +50,14 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/googleaaafc40b65e0ed60.html': typeof Googleaaafc40b65e0ed60DothtmlRoute
   '/request': typeof RequestRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/googleaaafc40b65e0ed60.html': typeof Googleaaafc40b65e0ed60DothtmlRoute
   '/request': typeof RequestRoute
   '/admin': typeof AuthenticatedAdminRoute
 }
@@ -57,19 +66,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/googleaaafc40b65e0ed60.html': typeof Googleaaafc40b65e0ed60DothtmlRoute
   '/request': typeof RequestRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/request' | '/admin'
+  fullPaths:
+    '/' | '/auth' | '/googleaaafc40b65e0ed60.html' | '/request' | '/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/request' | '/admin'
+  to: '/' | '/auth' | '/googleaaafc40b65e0ed60.html' | '/request' | '/admin'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/googleaaafc40b65e0ed60.html'
     | '/request'
     | '/_authenticated/admin'
   fileRoutesById: FileRoutesById
@@ -78,6 +90,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  Googleaaafc40b65e0ed60DothtmlRoute: typeof Googleaaafc40b65e0ed60DothtmlRoute
   RequestRoute: typeof RequestRoute
 }
 
@@ -102,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/googleaaafc40b65e0ed60.html': {
+      id: '/googleaaafc40b65e0ed60.html'
+      path: '/googleaaafc40b65e0ed60.html'
+      fullPath: '/googleaaafc40b65e0ed60.html'
+      preLoaderRoute: typeof Googleaaafc40b65e0ed60DothtmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/request': {
@@ -136,6 +156,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  Googleaaafc40b65e0ed60DothtmlRoute: Googleaaafc40b65e0ed60DothtmlRoute,
   RequestRoute: RequestRoute,
 }
 export const routeTree = rootRouteImport

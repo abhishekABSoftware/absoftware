@@ -3,7 +3,7 @@
 // /googleaaafc40b65e0ed60.html as required by Google's file verification.
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/googleaaafc40b65e0ed60[.]html")({
+export const Route = createFileRoute("/googleaaafc40b65e0ed60.html")({
   server: {
     handlers: {
       GET: async () =>
