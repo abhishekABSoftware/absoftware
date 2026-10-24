@@ -55,7 +55,7 @@ function LandingPage() {
   );
 }
 
-/* ---------- SCROLL PROGRESS ---------- */
+/* ---------- SCROLL PROGRESS BAR ---------- */
 function ScrollProgress() {
   const [p, setP] = useState(0);
   useEffect(() => {
